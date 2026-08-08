@@ -8,7 +8,7 @@
 #include <behaviors/runtime-sensor-rotate.dtsi>
 #include "keycode_japanese.h"
 
-#undef ZMK_POINTING_DEFAULT_SCRL_VAL
+// #undef ZMK_POINTING_DEFAULT_SCRL_VAL
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 80
 
 
