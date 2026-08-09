@@ -6,6 +6,32 @@
 #include "LiTom.dtsi"
 
 / {
+    input_processors {
+        zip_scroll_x_scaler: zip_scroll_x_scaler {
+            compatible = "zmk,input-processor-scaler";
+            #input-processor-cells = <2>;
+            type = <INPUT_EV_REL>;
+            codes = <INPUT_REL_HWHEEL>;
+            track-remainders;
+        };
+    };
+};
+
+
+ / {
+    input_processors {
+        zip_scroll_y_scaler: zip_scroll_y_scaler {
+            compatible = "zmk,input-processor-scaler";
+            #input-processor-cells = <2>;
+            type = <INPUT_EV_REL>;
+            codes = <INPUT_REL_WHEEL>;
+            track-remainders;
+        };
+    };
+};
+
+
+/ {
     chosen {
         zmk,kscan = &kscan0;
         zmk,physical-layout = &default_layout;
@@ -71,9 +97,26 @@
     input-processors = <&mouse_runtime_input_processor>;
 
     scroll {
-        layers = <2>;
-        input-processors = <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>, <&zip_xy_scaler 1 1>, <&zip_xy_to_scroll_mapper>, <&scroll_runtime_input_processor>;
+        layers = <1>;
+        input-processors = 
+            <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>, 
+            <&zip_xy_scaler 1 1>, 
+            <&zip_xy_to_scroll_mapper>, 
+            <&zip_scroll_x_scaler 0 1>
+            <&scroll_runtime_input_processor>;
     };
+
+    scroll_y {
+        layers = <2>;
+        input-processors = 
+            <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>, 
+            <&zip_xy_scaler 1 1>, 
+            <&zip_xy_to_scroll_mapper>, 
+            <&zip_scroll_y_scaler 0 1>
+            <&scroll_runtime_input_processor>;
+    };
+
+
 };
 
 // 右手OLED用I2C設定
